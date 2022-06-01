@@ -11,7 +11,8 @@ const initialState = {
 const productsReducer = (state = initialState, {type, payload}) => {
     switch (type) {
         case SET_PRODUCTS:
-            return {...state, productsData: payload};
+            let newState = {...state, productsData: payload};
+            return newState;
         case UPDATE_PRODUCT_ID_TEXT:
             return {...state, inputProductIdText: payload};
         default:

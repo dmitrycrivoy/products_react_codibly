@@ -37,14 +37,18 @@ export default function TableProducts() {
     const productsData = await axios
       .get(`https://reqres.in/api/products?per_page=${PER_PAGE}&page=${page}`)
       .catch((err) => {console.log({"error": err})});
-    dispatch(setProducts(productsData.data));
+    if (!productsData) 
+      console.log("No products");
+    else
+      dispatch(setProducts(productsData.data));
   }
   // Get Product Data By ID
   const dataRequestByID = async (id) => {
     const productsData = await axios
       .get(`https://reqres.in/api/products?id=${id}`)
       .catch((err) => {console.log({"error": err})});
-    if (!productsData.data) console.log("No this product");
+    if (!productsData) 
+      console.log("No this product");
     else {
       let data = {data: [productsData.data.data]};
       dispatch(setProducts(data));
@@ -55,10 +59,6 @@ export default function TableProducts() {
     dataRequest()
   }, []);
 
-  // React.useEffect(() => {
-  //   dataRequestByID()
-  // }, []);
-  console.log(state)
   let data = state.productsPage.productsData.data;
   if (data) {
     if (data.length !== 1) {
@@ -73,7 +73,6 @@ export default function TableProducts() {
 
   if (!rows) rows = [];
   if (!totalRows) totalRows = 0;
-  // if (!inputProductIdText) inputProductIdText = '';
 
   // Action Functions
   const updateInputText = (e) => {
@@ -131,7 +130,6 @@ export default function TableProducts() {
             </TableHead>
             <TableBody>
               {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
                     <TableRow hover 
