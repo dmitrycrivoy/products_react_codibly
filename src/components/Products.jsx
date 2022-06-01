@@ -42,6 +42,7 @@ export default function TableProducts() {
     else
       dispatch(setProducts(productsData.data));
   }
+
   // Get Product Data By ID
   const dataRequestByID = async (id) => {
     const productsData = await axios
@@ -56,7 +57,8 @@ export default function TableProducts() {
   }
 
   React.useEffect(() => {
-    dataRequest()
+    dataRequest();
+    // eslint-disable-next-line
   }, []);
 
   let data = state.productsPage.productsData.data;
